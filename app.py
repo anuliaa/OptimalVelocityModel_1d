@@ -9,11 +9,10 @@ from single_vehicle import plot_vehicle_trajectory
 from snapshot import plot_velocity_snapshot
 
 import matplotlib
-matplotlib.use("Qt5Agg")  # Use Qt5Agg backend
+matplotlib.use("Qt5Agg")  # Use Qt5Agg backend bc TkAgg gave me error message
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 
-# --- Global storage ---
 model = None
 figures = []
 canvases = []
@@ -57,15 +56,14 @@ def run_simulation():
         snapshot_time = float(entry_snapshot.get())
     except ValueError:
         messagebox.showerror("Input Error", "Please enter valid numbers.")
-        show_welcome_message()  # Show welcome message again if there's an error
+        show_welcome_message() 
         return
 
     if vehicle_num < 1 or vehicle_num > N:
         messagebox.showerror("Invalid vehicle number", f"Must be between 1 and {N}")
-        show_welcome_message()  # Show welcome message again if there's an error
+        show_welcome_message() 
         return
 
-    # Run model
     global model
     model = OptimalVelocityModel(N=N, L=L, a=a)
     model.run_simulation(t_total)
@@ -142,7 +140,7 @@ root.title("Optimal Velocity Model Simulator")
 root.state('zoomed')  
 root.configure(bg='white')
 
-# --- Top input panel ---
+# Top input panel
 frame_input = tk.Frame(root, bg='lightblue', relief='raised', bd=2)
 frame_input.pack(side=tk.TOP, fill='x', padx=5, pady=5)
 
@@ -202,7 +200,7 @@ btn_save = tk.Button(buttons_frame, text="SAVE ALL PLOTS", command=save_all,
                     bg="lightyellow", font=("Arial", 11, "bold"), width=14, height=1)
 btn_save.pack(side=tk.LEFT, padx=5)
 
-# --- Main container for scrollable plots ---
+#Main container for scrollable plots
 main_container = tk.Frame(root)
 main_container.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
@@ -231,9 +229,7 @@ frame_plots = scrollable_frame
 def _on_mousewheel(event):
     canvas_container.yview_scroll(int(-1*(event.delta/120)), "units")
 
-canvas_container.bind("<MouseWheel>", _on_mousewheel)  # Windows
-canvas_container.bind("<Button-4>", lambda e: canvas_container.yview_scroll(-1, "units"))  # Linux
-canvas_container.bind("<Button-5>", lambda e: canvas_container.yview_scroll(1, "units"))   # Linux
+canvas_container.bind("<MouseWheel>", _on_mousewheel) 
 
 # Make canvas expand to fill window width
 def configure_canvas(event):
