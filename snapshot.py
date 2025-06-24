@@ -26,14 +26,7 @@ def plot_velocity_snapshot(model, snapshot_time, return_fig=False):
     ax1.grid(True, alpha=0.3)
     ax1.set_xlim(1, model.N)
     ax1.set_ylim(0, model.L)
-    
-    # Add some position statistics
-    pos_stats_text = f'Pos Range: [{np.min(positions):.1f}, {np.max(positions):.1f}]'
-    ax1.text(0.98, 0.02, pos_stats_text, transform=ax1.transAxes, 
-             verticalalignment='bottom', horizontalalignment='right',
-             bbox=dict(boxstyle='round', facecolor='lightcyan', alpha=0.8),
-             fontsize=10)
-    
+        
     # Bottom plot: Velocity profile as continuous line
     ax2.plot(vehicle_numbers, velocities, 'r-', linewidth=2, marker='o', 
              markersize=4, markerfacecolor='lightcoral', markeredgecolor='red')
